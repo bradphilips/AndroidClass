@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, LunchListActivity!</string>
+    <string name="app_name">LunchList</string>
+    <string name="barimage">BarImage</string>
+
+</resources>
