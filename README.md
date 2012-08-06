@@ -1,4 +1,4 @@
 AndroidClass
 ============
 
-Android class materials for prog training.
+Android class materials for training class.
