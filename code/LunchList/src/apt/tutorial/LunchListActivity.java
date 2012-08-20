@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 public class LunchListActivity extends Activity {
 	List<Restaurant> model = new ArrayList<Restaurant>();
-	ArrayAdapter<Restaurant> adapter = null;
+	RestaurantAdapter adapter = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,8 +26,8 @@ public class LunchListActivity extends Activity {
 		save.setOnClickListener(onSave);
 
 		ListView list = (ListView) findViewById(R.id.restaurants);
-		adapter = new ArrayAdapter<Restaurant>(this,
-				android.R.layout.simple_list_item_1, model);
+		adapter = new RestaurantAdapter(this);// ArrayAdapter<Restaurant>(this,
+		// android.R.layout.simple_list_item_1, model);
 		list.setAdapter(adapter);
 	}
 
@@ -53,5 +55,32 @@ public class LunchListActivity extends Activity {
 			adapter.add(r);
 		}
 	};
+
+	static class RestaurantHolder {
+		private TextView name = null;
+		private TextView address = null;
+		private ImageView icon = null;
+
+		RestaurantHolder(View row) {
+			name = (TextView) row.findViewById(R.id.title);
+			address = (TextView) row.findViewById(R.id.address);
+			icon = (ImageView) row.findViewById(R.id.icon);
+		}
+
+		void populateFrom(Restaurant r,View row,Context mContext) {
+			name.setText(r.getName());
+			address.setText(r.getAddress());
+			if (r.getType().equals("sitdown")) {
+				icon.setImageResource(R.drawable.ball_red);
+				row.setBackgroundColor(mContext.getResources().getColor(R.color.red));
+			} else if (r.getType().equals("takeout")) {
+				icon.setImageResource(R.drawable.ball_yellow);
+				row.setBackgroundColor(mContext.getResources().getColor(R.color.yellow));
+			} else {
+				icon.setImageResource(R.drawable.ball_green);
+				row.setBackgroundColor(mContext.getResources().getColor(R.color.green));
+			}
+		}
+	}
 
 }
