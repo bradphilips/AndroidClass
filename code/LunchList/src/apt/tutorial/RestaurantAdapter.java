@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import apt.tutorial.LunchListActivity.RestaurantHolder;
 
 public class RestaurantAdapter extends ArrayAdapter<Restaurant> {
-
 	private Context mContext;
 	
 	public RestaurantAdapter(Context context) {
@@ -20,19 +19,19 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
-		RestaurantHolder holder = null;
-
+		RestaurantHolder resturant = getItem(position);
+		
 		if (row == null) {
-			LayoutInflater inflater = ((Activity) getContext())
-					.getLayoutInflater();
+			LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
 			row = inflater.inflate(R.layout.row, null);
+		
 			holder = new RestaurantHolder(row);
 			row.setTag(holder);
 		} else {
 			holder = (RestaurantHolder) row.getTag();
 		}
 
-		holder.populateFrom((Restaurant) getItem(position),row,mContext);
+		holder.populateFrom((Restaurant) getItem(position), row, mContext);
 
 		return row;
 	}
