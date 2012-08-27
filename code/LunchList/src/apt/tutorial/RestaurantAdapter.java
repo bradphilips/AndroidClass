@@ -19,7 +19,7 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
-		RestaurantHolder resturant = getItem(position);
+		RestaurantHolder holder;
 		
 		if (row == null) {
 			LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
