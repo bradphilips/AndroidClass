@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="hello">Hello World, LunchListActivity!</string>
     <string name="app_name">LunchList</string>
     <string name="barimage">BarImage</string>
-
+    <string name="name_label">Name:</string>
+    <string name="address_label">Address:</string>
+    <string name="type_label">Type:</string>
+    <string name="take_out_label">Take-Out</string>
+    <string name="delivery_label">Delivery</string>
+    <string name="save">Save</string>
+    <string name="sit_down_label">Sit-Down</string>
 </resources>
