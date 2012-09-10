@@ -1,30 +1,42 @@
 package apt.tutorial;
-public class Restaurant {
-  
-  private String name="";
-  private String address="";
-  private String type="";
-  
-public String getName() {
-    return(name);
-  }
-public void setName(String name) {
-    this.name=name;
-  }
-public String getAddress() {
-    return(address);
-  }
-public void setAddress(String address) {
-    this.address=address;
-  }
-public String getType() {
-    return(type);
-  }
-public void setType(String type) {
-    this.type=type;
-  }
 
-public String toString() {
-	return getName();
-}
+public class Restaurant {
+
+	private String mName;
+	private String mAddress;
+	private String mType;
+
+	public Restaurant() {
+		mName = "";
+		mAddress = "";
+		mType = "";
+	}
+	
+	public String getName() {
+		return mName;
+	}
+
+	public void setName(String name) {
+		mName = name;
+	}
+
+	public String getAddress() {
+		return mAddress;
+	}
+
+	public void setAddress(String address) {
+		mAddress = address;
+	}
+
+	public String getType() {
+		return mType;
+	}
+
+	public void setType(String type) {
+		mType = type;
+	}
+
+	public String toString() {
+		return getName();
+	}
 }

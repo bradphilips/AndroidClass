@@ -28,26 +28,27 @@ public class LunchListActivity extends Activity {
 
 	private View.OnClickListener onSave = new View.OnClickListener() {
 		public void onClick(View v) {
-			Restaurant r = new Restaurant();
+			Restaurant restaurant = new Restaurant();
 			EditText name = (EditText) findViewById(R.id.name);
 			EditText address = (EditText) findViewById(R.id.addr);
-			r.setName(name.getText().toString());
-			r.setAddress(address.getText().toString());
 			RadioGroup types = (RadioGroup) findViewById(R.id.types);
+			
+			restaurant.setName(name.getText().toString());
+			restaurant.setAddress(address.getText().toString());
 
 			switch (types.getCheckedRadioButtonId()) {
 			case R.id.sitdown:
-				r.setType("sitdown");
+				restaurant.setType("sitdown");
 				break;
 			case R.id.takeout:
-				r.setType("takeout");
+				restaurant.setType("takeout");
 				break;
 			case R.id.delivery:
-				r.setType("delivery");
+				restaurant.setType("delivery");
 				break;
 			}
 
-			adapter.add(r);
+			adapter.add(restaurant);
 		}
 	};
 
