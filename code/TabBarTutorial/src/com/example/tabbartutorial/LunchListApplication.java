@@ -7,13 +7,22 @@ public class LunchListApplication extends Application {
 	public static int TAB_LIST 		= 0;
 	public static int TAB_DETAILS 	= 1;
 	
-	private static TabHost mTabHost;
+	private TabHost mTabHost;
+	private static LunchListApplication mApplication;
+	
+	public LunchListApplication() {
+		mApplication = this;
+	}
+	
+	public static LunchListApplication getApplication() {
+		return mApplication;
+	}
 
-	public static TabHost getTabHost() {
+	public TabHost getTabHost() {
 		return mTabHost;
 	}
 
-	public static void setTabHost(TabHost tabHost) {
+	public void setTabHost(TabHost tabHost) {
 		mTabHost = tabHost;
 	}
 }

@@ -18,7 +18,7 @@ public class DetailsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details);
-		
+
 		Button save = (Button) findViewById(R.id.save);
 		save.setOnClickListener(onSave);
 	}
@@ -90,12 +90,15 @@ public class DetailsActivity extends Activity {
 				sharedList.setEditing(-1);
 			}
 			
+			sharedList.saveRestaurants();
+			
 			//Clear the form...
 			name.setText("");
 			address.setText("");
 			types.setSelected(false);
 			
-			TabHost host = LunchListApplication.getTabHost();
+			LunchListApplication application = (LunchListApplication) getApplication();	
+			TabHost host = application.getTabHost();
 			host.setCurrentTab(LunchListApplication.TAB_LIST);
 		}
 	};

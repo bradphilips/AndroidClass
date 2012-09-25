@@ -30,7 +30,8 @@ public class MainActivity extends TabActivity {
 		details.setContent(detailsIntent);
 		tabHost.addTab(details);
 		
-		LunchListApplication.setTabHost(tabHost);
+		LunchListApplication application = (LunchListApplication)getApplication();
+		application.setTabHost(tabHost);
 	}
 
 	@Override

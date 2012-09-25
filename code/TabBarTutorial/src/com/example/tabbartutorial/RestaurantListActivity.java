@@ -46,8 +46,9 @@ public class RestaurantListActivity extends Activity {
 			ResaurantList restaurantList = ResaurantList.getSharedResaurantList();
 			restaurantList.setEditing(position);
 			
-			TabHost tabHost = LunchListApplication.getTabHost();
-			tabHost.setCurrentTab(LunchListApplication.TAB_DETAILS);
+			LunchListApplication application = (LunchListApplication) getApplication();	
+			TabHost host = application.getTabHost();
+			host.setCurrentTab(LunchListApplication.TAB_DETAILS);
 		}
 	};
 }
