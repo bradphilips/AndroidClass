@@ -1,6 +1,8 @@
 package com.example.tabbartutorial;
 
-import android.app.Activity;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -10,40 +12,41 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 
-import com.example.tabbartutorial.data.ResaurantList;
+import com.example.tabbartutorial.data.RestaurantList;
 import com.example.tabbartutorial.data.Restaurant;
+import com.google.inject.Inject;
 
-public class DetailsActivity extends Activity {
+@ContentView(R.layout.details)
+public class DetailsActivity extends RoboActivity {
+	@InjectView(R.id.name) EditText mNameText;
+	@InjectView(R.id.addr) EditText mAddressText;
+	@InjectView(R.id.types) RadioGroup mTypesGroup;
+	@InjectView(R.id.save) Button mSave;
+	
+	@Inject RestaurantList mRestaurantList;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.details);
-
-		Button save = (Button) findViewById(R.id.save);
-		save.setOnClickListener(onSave);
+		mSave.setOnClickListener(onSave);
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		
-		ResaurantList sharedList = ResaurantList.getSharedResaurantList();
-		if (sharedList.isEditing()) {
-			EditText name = (EditText) findViewById(R.id.name);
-			EditText address = (EditText) findViewById(R.id.addr);
-			RadioGroup types = (RadioGroup) findViewById(R.id.types);
-			
-			Restaurant restaurant = sharedList.getEditingItem();
-			name.setText(restaurant.getName());
-			address.setText(restaurant.getAddress());
+		if (mRestaurantList.isEditing()) {
+			Restaurant restaurant = mRestaurantList.getEditingItem();
+			mNameText.setText(restaurant.getName());
+			mAddressText.setText(restaurant.getAddress());
 			if(restaurant.getType().equalsIgnoreCase("sitdown")) {
-				RadioButton radio = (RadioButton) types.findViewById(R.id.sitdown);
+				RadioButton radio = (RadioButton) mTypesGroup.findViewById(R.id.sitdown);
 				radio.setSelected(true);
 			} else if (restaurant.getType().equalsIgnoreCase("takeout")) {
-				RadioButton radio = (RadioButton) types.findViewById(R.id.takeout);
+				RadioButton radio = (RadioButton) mTypesGroup.findViewById(R.id.takeout);
 				radio.setSelected(true);
 			} else if (restaurant.getType().equalsIgnoreCase("delivery")) {
-				RadioButton radio = (RadioButton) types.findViewById(R.id.delivery);
+				RadioButton radio = (RadioButton) mTypesGroup.findViewById(R.id.delivery);
 				radio.setSelected(true);
 			}
 		}
@@ -57,22 +60,17 @@ public class DetailsActivity extends Activity {
 
 	private View.OnClickListener onSave = new View.OnClickListener() {
 		public void onClick(View v) {
-			ResaurantList sharedList = ResaurantList.getSharedResaurantList();
 			Restaurant restaurant = null;
-			if (sharedList.isEditing()) {
-				restaurant = sharedList.getEditingItem();
+			if (mRestaurantList.isEditing()) {
+				restaurant = mRestaurantList.getEditingItem();
 			} else {
 				restaurant = new Restaurant();
 			}
 			
-			EditText name = (EditText) findViewById(R.id.name);
-			EditText address = (EditText) findViewById(R.id.addr);
-			RadioGroup types = (RadioGroup) findViewById(R.id.types);
+			restaurant.setName(mNameText.getText().toString());
+			restaurant.setAddress(mAddressText.getText().toString());
 			
-			restaurant.setName(name.getText().toString());
-			restaurant.setAddress(address.getText().toString());
-			
-			switch (types.getCheckedRadioButtonId()) {
+			switch (mTypesGroup.getCheckedRadioButtonId()) {
 			case R.id.sitdown:
 				restaurant.setType("sitdown");
 				break;
@@ -84,18 +82,18 @@ public class DetailsActivity extends Activity {
 				break;
 			}
 			
-			if (sharedList.isEditing() == false) {
-				sharedList.getRestaurants().add(restaurant);
+			if (mRestaurantList.isEditing() == false) {
+				mRestaurantList.getRestaurants().add(restaurant);
 			} else {
-				sharedList.setEditing(-1);
+				mRestaurantList.setEditing(-1);
 			}
 			
-			sharedList.saveRestaurants();
+			mRestaurantList.saveRestaurants();
 			
 			//Clear the form...
-			name.setText("");
-			address.setText("");
-			types.setSelected(false);
+			mNameText.setText("");
+			mAddressText.setText("");
+			mTypesGroup.setSelected(false);
 			
 			LunchListApplication application = (LunchListApplication) getApplication();	
 			TabHost host = application.getTabHost();

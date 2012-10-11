@@ -1,6 +1,7 @@
 package com.example.tabbartutorial;
 
-import android.app.Activity;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -9,18 +10,19 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TabHost;
 
-import com.example.tabbartutorial.data.ResaurantList;
+import com.example.tabbartutorial.data.RestaurantList;
+import com.google.inject.Inject;
 
-public class RestaurantListActivity extends Activity {
+@ContentView(R.layout.list)
+public class RestaurantListActivity extends RoboActivity {
 	private RestaurantAdapter mAdapter;
+	
+	@Inject protected RestaurantList mRestaurantList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list);
-
-		ResaurantList restaurantList = ResaurantList.getSharedResaurantList();
-		mAdapter = new RestaurantAdapter(this, restaurantList.getRestaurants());
+		mAdapter = new RestaurantAdapter(this, mRestaurantList.getRestaurants());
 		
 		ListView list = (ListView) findViewById(R.id.restaurants);
 		
@@ -43,8 +45,7 @@ public class RestaurantListActivity extends Activity {
 	private OnItemClickListener mItemClickListener = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-			ResaurantList restaurantList = ResaurantList.getSharedResaurantList();
-			restaurantList.setEditing(position);
+			mRestaurantList.setEditing(position);
 			
 			LunchListApplication application = (LunchListApplication) getApplication();	
 			TabHost host = application.getTabHost();

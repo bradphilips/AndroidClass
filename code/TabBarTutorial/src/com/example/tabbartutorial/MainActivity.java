@@ -1,19 +1,18 @@
 package com.example.tabbartutorial;
 
-import android.app.TabActivity;
+import roboguice.activity.RoboTabActivity;
+import roboguice.inject.ContentView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-public class MainActivity extends TabActivity {
-
+@ContentView(R.layout.main)
+public class MainActivity extends RoboTabActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-
 		TabHost tabHost = getTabHost();
 
 		// tab for list
