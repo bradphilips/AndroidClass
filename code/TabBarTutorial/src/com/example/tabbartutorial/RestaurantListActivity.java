@@ -2,6 +2,7 @@ package com.example.tabbartutorial;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -18,16 +19,15 @@ public class RestaurantListActivity extends RoboActivity {
 	private RestaurantAdapter mAdapter;
 	
 	@Inject protected RestaurantList mRestaurantList;
+	@InjectView(R.id.restaurants) private ListView mRestaurantListView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mAdapter = new RestaurantAdapter(this, mRestaurantList.getRestaurants());
 		
-		ListView list = (ListView) findViewById(R.id.restaurants);
-		
-		list.setAdapter(mAdapter);
-		list.setOnItemClickListener(mItemClickListener);
+		mRestaurantListView.setAdapter(mAdapter);
+		mRestaurantListView.setOnItemClickListener(mItemClickListener);
 	}
 	
 	@Override

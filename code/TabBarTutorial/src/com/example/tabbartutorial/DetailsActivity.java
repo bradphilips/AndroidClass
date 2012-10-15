@@ -18,12 +18,12 @@ import com.google.inject.Inject;
 
 @ContentView(R.layout.details)
 public class DetailsActivity extends RoboActivity {
-	@InjectView(R.id.name) EditText mNameText;
-	@InjectView(R.id.addr) EditText mAddressText;
-	@InjectView(R.id.types) RadioGroup mTypesGroup;
-	@InjectView(R.id.save) Button mSave;
+	@InjectView(R.id.name) private EditText mNameText;
+	@InjectView(R.id.addr) private EditText mAddressText;
+	@InjectView(R.id.types) private RadioGroup mTypesGroup;
+	@InjectView(R.id.save) private Button mSave;
 	
-	@Inject RestaurantList mRestaurantList;
+	@Inject protected RestaurantList mRestaurantList;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
