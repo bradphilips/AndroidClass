@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Light" />
+    
+    <color name="blue">#88F</color>
+
+</resources>
