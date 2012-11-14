@@ -19,6 +19,10 @@ public class TwitterResponse implements Serializable {
 		this.mTitle = mTitle;
 	}
 	
+	public String toString() {
+		return mTitle;
+	}
+	
 	public static ArrayList<TwitterResponse> deserializeJson(String json) {
 		Gson gson = new Gson();
 		TwitterContainer container = gson.fromJson(json, TwitterContainer.class);
