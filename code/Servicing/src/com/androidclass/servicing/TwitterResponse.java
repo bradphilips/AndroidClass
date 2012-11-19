@@ -11,16 +11,16 @@ public class TwitterResponse implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SerializedName("title") private String mTitle;
-	public String getTitle() {
-		return mTitle;
+	@SerializedName("text") private String mText;
+	public String getText() {
+		return this.mText;
 	}
-	public void setTitle(String mTitle) {
-		this.mTitle = mTitle;
+	public void setText(String mText) {
+		this.mText = mText;
 	}
 	
 	public String toString() {
-		return mTitle;
+		return mText;
 	}
 	
 	public static ArrayList<TwitterResponse> deserializeJson(String json) {

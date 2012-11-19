@@ -16,4 +16,10 @@
         android:layout_below="@android:id/list"
         android:text="@string/refresh" />
 
+    <EditText
+        android:id="@+id/search_criteria"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/refresh"
+        android:layout_height="wrap_content" android:inputType="text"/>
+
 </RelativeLayout>

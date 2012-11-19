@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -16,18 +17,20 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class TwitterAsyncTask extends AsyncTask<Void, Void, Void> {
+public class TwitterAsyncTask extends AsyncTask<String, Void, Void> {
 	private static final String TAG = TwitterAsyncTask.class.getSimpleName();
 	private Context mContext;
+	private static HttpClient mClient;
 
 	public TwitterAsyncTask(Context context) {
 		mContext = context;
 	}
 	@Override
-	protected Void doInBackground(Void... params) {
+	protected Void doInBackground(String... params) {
+		String searchCriteria = params.length > 0 ? URLEncoder.encode(params[0]) : "%23android";
 		Log.d(TAG, "Excellent...");
-		HttpClient client = new DefaultHttpClient();
-		HttpGet fetchRequest = new HttpGet("http://search.twitter.com/search.json?lang=en&q=%23android");
+		HttpClient client = getClient();
+		HttpGet fetchRequest = new HttpGet(mContext.getString(R.string.twitter_url) + searchCriteria);
 		try {
 			HttpResponse response = client.execute(fetchRequest);
 			String jsonString = convertStreamToString(response.getEntity().getContent());
@@ -39,6 +42,13 @@ public class TwitterAsyncTask extends AsyncTask<Void, Void, Void> {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private HttpClient getClient() {
+		if (mClient == null) {
+			mClient = new DefaultHttpClient();
+		}
+		return mClient;
 	}
 	
 	private String convertStreamToString(InputStream is) {
