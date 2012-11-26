@@ -1,8 +1,6 @@
 package com.androidclass.servicing;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -35,7 +33,7 @@ public class MainActivity extends ListActivity {
         refresh.setOnClickListener(mRefreshOnClick);
         mSearchCriteria = (EditText)findViewById(R.id.search_criteria);
         
-        ArrayAdapter<TwitterResponse> adapter = new ArrayAdapter<TwitterResponse>(this, android.R.layout.simple_expandable_list_item_1);
+        ArrayAdapter<TwitterResponse> adapter = new ArrayAdapter<TwitterResponse>(this, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
         
         mReceiver = new TwitterResponseReciever();
@@ -54,6 +52,7 @@ public class MainActivity extends ListActivity {
 		public void onClick(View view) {
 			Log.d(TAG, "Calling service...");
 			mProgress = new ProgressDialog(MainActivity.this, ProgressDialog.STYLE_SPINNER);
+			mProgress.setTitle("Loading");
 			mProgress.setMessage("Please wait...");
 			mProgress.show();
 			
