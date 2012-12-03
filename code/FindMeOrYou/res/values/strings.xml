@@ -4,5 +4,6 @@
     <string name="app_name">FindMeOrYou</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-
+	<string name="maps_key">0Qdvbg1zqAv1JlnCExLraXsaCqNrSBEXXp_PwGA</string>
+	<!-- <string name="maps_key">GET YOUR OWN MAN</string> -->
 </resources>

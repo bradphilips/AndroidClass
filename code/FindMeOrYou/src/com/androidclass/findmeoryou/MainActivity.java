@@ -1,5 +1,7 @@
 package com.androidclass.findmeoryou;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
@@ -13,37 +15,39 @@ import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 public class MainActivity extends MapActivity implements LocationListener{
 	private final class OverlayExtension extends ItemizedOverlay<OverlayItem> {
-		private OverlayItem mItem;
+		private ArrayList<OverlayItem> mItems;
 
 		public OverlayExtension(Drawable defaultMarker) {
-			super(defaultMarker);
+			super(boundCenterBottom(defaultMarker));
+			mItems = new ArrayList<OverlayItem>();
 		}
 
-		public OverlayExtension(Drawable drawable, OverlayItem item) {
-			this(drawable);
-			mItem = item;
+		public void addOverlay(OverlayItem item) {
+			mItems.add(item);
+			populate();
 		}
-
+		
 		@Override
-		public boolean onTap(GeoPoint p, MapView mapView) {
-			Toast.makeText(MainActivity.this, "Thanks for touching " + mItem.getTitle() + "...", Toast.LENGTH_LONG).show();
-			return super.onTap(p, mapView);
+		protected boolean onTap(int index) {	
+			OverlayItem item = mItems.get(index);
+			Toast.makeText(MainActivity.this, "Thanks for touching " + item.getTitle() + "...", Toast.LENGTH_LONG).show();
+			return true;
 		}
 
 		@Override
 		protected OverlayItem createItem(int i) {
-			return getItem(i);
+			return mItems.get(i);
 		}
 
 		@Override
 		public int size() {
-			return 0;
+			return mItems.size();
 		}
 	}
 
@@ -56,10 +60,13 @@ public class MainActivity extends MapActivity implements LocationListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mMapView = (MapView) findViewById(R.id.mapview);
+		mMapView.setBuiltInZoomControls(true);
 		setupLocationUpdates();
 	}
 
 	private void setupLocationUpdates() {
+		mMapView.getOverlays().clear();
+		
 		mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		
 		Criteria criteria = new Criteria();
@@ -95,13 +102,20 @@ public class MainActivity extends MapActivity implements LocationListener{
 
 	@Override
 	public void onLocationChanged(Location location) {
+		mLocationManager.removeUpdates(this);
+		
 		Toast.makeText(this, location.toString(), Toast.LENGTH_LONG).show();
 		int latE6 = (int)(location.getLatitude() * 1E6), lngE6 = (int)(location.getLongitude() * 1E6);
 		GeoPoint point = new GeoPoint(latE6, lngE6);
 		OverlayItem item = new OverlayItem(point, "Me or You", null);
-		Overlay overlay = new OverlayExtension(getResources().getDrawable(android.R.drawable.btn_star), item);
+		OverlayExtension overlay = new OverlayExtension(getResources().getDrawable(R.drawable.map_marker));
+		overlay.addOverlay(item);
 		mMapView.getOverlays().add(overlay);
-		mMapView.getController().animateTo(point);
+		
+		
+		MapController controller = mMapView.getController();
+		controller.animateTo(point);
+		controller.setZoom(15);
 	}
 
 	@Override
