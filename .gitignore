@@ -9,25 +9,24 @@
 *.class
 
 # generated files
-bin/
-gen/
+*/bin/
+*/gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
 
-syntax: glob
 *.orig
 *.rej
 *~
 *.o
 *.log
-tests/*.err
+*/tests/*.err
 .git*
 .DS_Store
-tmp/*
-bin/*
-out/*
-target/*
+*/tmp/
+*/bin/
+*/out/
+*/target/
 .classpath
 .project
 *.ipr
@@ -35,8 +34,4 @@ target/*
 *.iml
 .settings
 .idea
-gen-external-apklibs/*
-
-Server/barkudo/public/system/
-syntax: regexp
-.*\#.*\#$
+*/gen-external-apklibs/

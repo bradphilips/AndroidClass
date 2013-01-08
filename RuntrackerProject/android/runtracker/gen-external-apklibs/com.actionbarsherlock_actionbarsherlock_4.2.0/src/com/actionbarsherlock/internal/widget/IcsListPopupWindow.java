@@ -1,5 +1,7 @@
 package com.actionbarsherlock.internal.widget;
 
+import com.actionbarsherlock.R;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
@@ -8,11 +10,19 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.view.*;
+import android.view.ContextThemeWrapper;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnTouchListener;
-import android.widget.*;
-import com.actionbarsherlock.R;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 
 /**
  * A proxy between pre- and post-Honeycomb implementations of this class.

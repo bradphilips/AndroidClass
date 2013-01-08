@@ -1,19 +1,19 @@
 package com.actionbarsherlock.internal;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.MenuInflater;
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
+import android.view.View;
+import android.view.Window;
+import android.view.ViewGroup.LayoutParams;
 
 @ActionBarSherlock.Implementation(api = 14)
 public class ActionBarSherlockNative extends ActionBarSherlock {

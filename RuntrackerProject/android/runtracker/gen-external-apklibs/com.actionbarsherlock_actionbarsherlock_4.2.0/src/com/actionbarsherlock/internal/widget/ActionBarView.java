@@ -16,6 +16,7 @@
 
 package com.actionbarsherlock.internal.widget;
 
+import org.xmlpull.v1.XmlPullParser;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -32,19 +33,35 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.*;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.*;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.internal.ActionBarSherlockCompat;
-import com.actionbarsherlock.internal.view.menu.*;
+import com.actionbarsherlock.internal.view.menu.ActionMenuItem;
+import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
+import com.actionbarsherlock.internal.view.menu.ActionMenuView;
+import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
+import com.actionbarsherlock.internal.view.menu.MenuPresenter;
+import com.actionbarsherlock.internal.view.menu.MenuView;
+import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
 import com.actionbarsherlock.view.CollapsibleActionView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
-import org.xmlpull.v1.XmlPullParser;
 
 import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
