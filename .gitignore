@@ -14,3 +14,29 @@ gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
+
+syntax: glob
+*.orig
+*.rej
+*~
+*.o
+*.log
+tests/*.err
+.git*
+.DS_Store
+tmp/*
+bin/*
+out/*
+target/*
+.classpath
+.project
+*.ipr
+*.iws
+*.iml
+.settings
+.idea
+gen-external-apklibs/*
+
+Server/barkudo/public/system/
+syntax: regexp
+.*\#.*\#$
