@@ -9,8 +9,8 @@
 *.class
 
 # generated files
-*/bin/
-*/gen/
+bin/
+gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -23,10 +23,10 @@ local.properties
 */tests/*.err
 .git*
 .DS_Store
-*/tmp/
-*/bin/
-*/out/
-*/target/
+tmp/
+bin/
+out/
+target/
 .classpath
 .project
 *.ipr
@@ -34,4 +34,4 @@ local.properties
 *.iml
 .settings
 .idea
-*/gen-external-apklibs/
+gen-external-apklibs/
