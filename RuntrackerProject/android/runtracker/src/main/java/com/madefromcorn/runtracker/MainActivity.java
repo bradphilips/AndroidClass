@@ -1,6 +1,7 @@
 package com.madefromcorn.runtracker;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Window;
@@ -13,7 +14,9 @@ import roboguice.inject.ContentView;
 public class MainActivity extends RoboSherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if(Build.VERSION_CODES.HONEYCOMB > Build.VERSION.SDK_INT) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getSupportActionBar();
