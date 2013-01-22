@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
@@ -37,5 +38,12 @@ public class RunFragment extends RoboSherlockFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Integer [] minSecs = new Integer[60];
+        for(int i = 0; i < 60; i++) {
+            minSecs[i] = i + 1;
+        }
+        ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_list_item_1, minSecs);
+        mPaceSpinnerMins.setAdapter(integerArrayAdapter);
+        mPaceSpinnerSecs.setAdapter(integerArrayAdapter);
     }
 }
