@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Run Tracker</string>
+    <string name="target_pace">Targeted Pace</string>
+    <string name="targeted_distance">Targeted Distance</string>
+    <string name="run_text">Start!</string>
+    <string name="seconds_label">secs</string>
+    <string name="minutes_label">mins</string>
 </resources>

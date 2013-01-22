@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.Window;
 import com.actionbarsherlock.app.ActionBar;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockFragmentActivity;
+import com.madefromcorn.runtracker.fragments.RunFragment;
 import com.madefromcorn.runtracker.utils.TabListener;
 import roboguice.inject.ContentView;
 
