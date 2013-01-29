@@ -6,4 +6,5 @@
     <string name="run_text">Start!</string>
     <string name="seconds_label">secs</string>
     <string name="minutes_label">mins</string>
+    <string name="hours_label">hours</string>
 </resources>

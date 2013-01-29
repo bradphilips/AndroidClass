@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 import com.madefromcorn.runtracker.R;
+import com.madefromcorn.runtracker.uicommon.PaceSpinner;
 import roboguice.inject.InjectView;
 
 /**
@@ -19,14 +19,14 @@ import roboguice.inject.InjectView;
  */
 public class RunFragment extends RoboSherlockFragment {
 
-    @InjectView(R.id.pace_spinner_mins)
-    private Spinner mPaceSpinnerMins;
-    @InjectView(R.id.pace_spinner_secs)
-    private Spinner mPaceSpinnerSecs;
+    @InjectView(R.id.pace_spinner)
+    private PaceSpinner mPaceSpinner;
     @InjectView(R.id.distance_spinner)
     private Spinner mDistanceSpinner;
     @InjectView(R.id.run_button)
     private Button mRunButton;
+
+    private static final String DIALOG_TAG = RunFragment.class.getName() + ".DIALOG_TAG";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,13 +37,5 @@ public class RunFragment extends RoboSherlockFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        Integer [] minSecs = new Integer[60];
-        for(int i = 0; i < 60; i++) {
-            minSecs[i] = i + 1;
-        }
-        ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_list_item_1, minSecs);
-        mPaceSpinnerMins.setAdapter(integerArrayAdapter);
-        mPaceSpinnerSecs.setAdapter(integerArrayAdapter);
     }
 }
