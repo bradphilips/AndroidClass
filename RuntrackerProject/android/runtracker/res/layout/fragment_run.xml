@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -16,29 +17,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <com.madefromcorn.runtracker.uicommon.PaceSpinner
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/pace_spinner"/>
-        <!--<Spinner-->
-                <!--android:id="@+id/pace_spinner_mins"-->
-                <!--android:layout_width="0dip"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.40"/>-->
-        <!--<TextView-->
-                <!--android:layout_width="0dip"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.10"-->
-                <!--android:text="@string/minutes_label"/>-->
-        <!--<Spinner-->
-                <!--android:id="@+id/pace_spinner_secs"-->
-                <!--android:layout_width="0dip"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.40"/>-->
-        <!--<TextView-->
-                <!--android:layout_width="0dip"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.10"-->
-                <!--android:text="@string/seconds_label"/>-->
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/pace_spinner"
+                app:minMinutes="3"
+                app:maxMinutes="30"/>
     </LinearLayout>
 
     <TextView

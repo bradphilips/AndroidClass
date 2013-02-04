@@ -1,13 +1,17 @@
 package com.madefromcorn.runtracker.uicommon;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import android.content.DialogInterface;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import com.madefromcorn.runtracker.R;
-import com.madefromcorn.runtracker.fragments.PacePickerDialog;
 
 /**
  * Project: runtracker
@@ -19,71 +23,92 @@ public class PaceSpinner extends Spinner {
 
     private static final String DIALOG_TAG = PaceSpinner.class.getName() + ".DIALOG_TAG";
 
-    private int mHours = 0;
-    private int mMinutes = 0;
-    private int mSeconds = 0;
+    private NumberPicker mMinPicker;
+    private NumberPicker mSecPicker;
     private ArrayAdapter<String> mAdapter;
-    private PacePickerDialog.OnSetPaceClickListener mOnSetPaceClickListener;
+    private OnSetPaceClickListener mOnSetPaceClickListener;
 
-    public PaceSpinner(Context context) {
-        super(context);
-        setupAdapter(context);
-    }
+    private static final int MAXIMUM_MINS = 59;
+    private static final int MAXIMUM_SECS = 59;
+    private static final int MINIMUM_MINS = 0;
+    private static final int MINIMUM_SECS = 0;
 
-    public PaceSpinner(Context context, int mode) {
-        super(context, mode);
-        setupAdapter(context);
-    }
+    private int mMinutes;
+    private int mSeconds;
+    private int mMinimumMins;
+    private int mMaximumMins;
+    private int mMinimumSecs;
+    private int mMaximumSecs;
 
     public PaceSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setupAdapter(context);
-    }
 
-    public PaceSpinner(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        setupAdapter(context);
-    }
-
-    public PaceSpinner(Context context, AttributeSet attrs, int defStyle, int mode) {
-        super(context, attrs, defStyle, mode);
+        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.PaceSpinner);
+        mMaximumMins = attributes.getInt(R.styleable.PaceSpinner_maxMinutes, MAXIMUM_MINS);
+        mMaximumSecs = attributes.getInt(R.styleable.PaceSpinner_maxSeconds, MAXIMUM_SECS);
+        mMinimumMins = attributes.getInt(R.styleable.PaceSpinner_minMinutes, MINIMUM_MINS);
+        mMinimumSecs = attributes.getInt(R.styleable.PaceSpinner_minSeconds, MINIMUM_SECS);
+        mMinutes = mMinimumMins;
+        mSeconds = mMinimumSecs;
         setupAdapter(context);
     }
 
     @Override
     public boolean performClick() {
-        FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
-        PacePickerDialog pickerDialog = new PacePickerDialog(mHours, mMinutes, mSeconds);
-        pickerDialog.show(fragmentManager, DIALOG_TAG);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View view = createView();
+        mMinPicker = (NumberPicker) view.findViewById(R.id.min_picker);
+        mSecPicker = (NumberPicker) view.findViewById(R.id.sec_picker);
 
-        pickerDialog.setOnSetPaceClickListener(new PacePickerDialog.OnSetPaceClickListener() {
-            @Override
-            public void setPaceClicked(int hours, int minutes, int seconds) {
-                mHours = hours;
-                mMinutes = minutes;
-                mSeconds = seconds;
+        mMinPicker.setMaxValue(mMaximumMins);
+        mMinPicker.setMinValue(mMinimumMins);
+        mSecPicker.setMaxValue(mMaximumSecs);
+        mSecPicker.setMinValue(mMinimumSecs);
 
-                mAdapter.insert(String.format("%02d:%02d:%02d", mHours, mMinutes, mSeconds), 0);
-                setSelection(0, true);
-                if (mOnSetPaceClickListener != null) {
-                    mOnSetPaceClickListener.setPaceClicked(hours, minutes, seconds);
-                }
-            }
-        });
+        mMinPicker.setValue(mMinutes);
+        mSecPicker.setValue(mSeconds);
+        AlertDialog dialog = builder
+                .setTitle("Choose your Pace")
+                .setView(view)
+                .setPositiveButton("Set", mSetPaceOnClick)
+                .setNegativeButton("Cancel", null)
+                .create();
+
+        dialog.show();
         return false;
     }
 
-    public PacePickerDialog.OnSetPaceClickListener getOnSetPaceClickListener() {
-        return mOnSetPaceClickListener;
+    private Dialog.OnClickListener mSetPaceOnClick = new Dialog.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            mMinutes = mMinPicker.getValue();
+            mSeconds = mSecPicker.getValue();
+            mAdapter.insert(String.format("%02d:%02d", mMinutes, mSeconds), 0);
+            setSelection(0, true);
+
+            if (mOnSetPaceClickListener != null) {
+                mOnSetPaceClickListener.setPaceClicked(mMinutes, mSeconds);
+            }
+        }
+    };
+
+    private View createView() {
+        LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.pace_dialog_fragment, null);
+        return view;
     }
 
-    public void setOnSetPaceClickListener(PacePickerDialog.OnSetPaceClickListener mOnSetPaceClickListener) {
+    public void setOnSetPaceClickListener(OnSetPaceClickListener mOnSetPaceClickListener) {
         this.mOnSetPaceClickListener = mOnSetPaceClickListener;
     }
 
     private void setupAdapter(Context context) {
         mAdapter = new ArrayAdapter<String>(context, R.layout.sherlock_spinner_item);
-        mAdapter.insert(String.format("%02d:%02d:%02d", mHours, mMinutes, mSeconds), 0);
+        mAdapter.insert(String.format("%02d:%02d", mMinimumMins, mMinimumSecs), 0);
         setAdapter(mAdapter);
+    }
+
+    public interface OnSetPaceClickListener {
+        public void setPaceClicked(int minutes, int seconds);
     }
 }

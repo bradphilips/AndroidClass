@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PaceSpinner">
+        <attr name="maxMinutes" format="integer"/>
+        <attr name="maxSeconds" format="integer"/>
+        <attr name="minMinutes" format="integer"/>
+        <attr name="minSeconds" format="integer"/>
+    </declare-styleable>
+</resources>
