@@ -33,8 +33,8 @@ public class RuntrackerDatabase extends SQLiteOpenHelper {
                 "RunID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Name VARCHAR(255) NOT NULL," +
                 "RouteID INTEGER," +
-                "StartTime TIMESTAMP," +
-                "EndTime TIMESTAMP," +
+                "StartTime INTEGER," +
+                "EndTime INTEGER," +
                 "TotalDistance NUMERIC(6,2) NOT NULL," +
                 "TargetedPaceMinutes INTEGER NOT NULL," +
                 "TargetedPaceSeconds INTEGER NOT NULL," +
@@ -54,7 +54,7 @@ public class RuntrackerDatabase extends SQLiteOpenHelper {
                 "Latitude NUMERIC(6,10) NOT NULL," +
                 "Longitude NUMERIC(6,10) NOT NULL," +
                 "Description CLOB NOT NULL," +
-                "CreatedAt TIMESTAMP NOT NULL);"
+                "CreatedAt TIMESTAMP NOT NULL DEFAULT (strftime('%s','now')));"
         );
 
         db.execSQL("CREATE TABLE " + RUN_DATA_TABLE + " (" +
@@ -63,7 +63,7 @@ public class RuntrackerDatabase extends SQLiteOpenHelper {
                 "Latitude NUMERIC(6,10) NOT NULL," +
                 "Longitude NUMERIC(6,10) NOT NULL," +
                 "Altitude NUMERIC(6,10) NOT NULL," +
-                "CreatedAt TIMESTAMP NOT NULL);"
+                "CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s','now')));"
         );
     }
 

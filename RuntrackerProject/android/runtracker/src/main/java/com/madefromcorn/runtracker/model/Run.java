@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.madefromcorn.runtracker.model.common.ActiveRecordBase;
 
+import java.util.Date;
+
 /**
  * Project: runtracker
  * Author: Brad Philips
@@ -11,8 +13,13 @@ import com.madefromcorn.runtracker.model.common.ActiveRecordBase;
  * Time: 8:46 PM
  */
 public class Run extends ActiveRecordBase {
-    private static final String[] COLUMNS = {"RunID", "Name", "RouteID", "Start", "EndTime", "TotalDistance",
+    private static final String[] COLUMNS = {"RunID", "Name", "RouteID", "StartTime", "EndTime", "TotalDistance",
             "TargetedPaceMinutes", "TargetedPaceSeconds", "TargetedDistance"};
+    private Integer mRunId;
+    private String mName;
+    private Integer mRouteId;
+    private Date mStartTime;
+    private Date mEndTime;
 
     public Run(SQLiteOpenHelper databaseHelper) {
         super(databaseHelper);
@@ -20,13 +27,22 @@ public class Run extends ActiveRecordBase {
 
     @Override
     public int getId() {
-        // TODO: Return the actual ID!
-        return 0;
+        return mRunId;
     }
 
     @Override
     public void loadFromCursor(Cursor cursor) {
-        // TODO: DOIT!
+        cursor.moveToFirst();
+        mRunId = cursor.getInt(0);
+        mName = cursor.getString(1);
+        mRouteId = cursor.getInt(2);
+
+        long startTime = cursor.getLong(3);
+        mStartTime = new Date(startTime * 1000);
+        long endTime = cursor.getLong(3);
+        mEndTime = new Date(endTime * 1000);
+
+        // etc...
     }
 
     @Override
