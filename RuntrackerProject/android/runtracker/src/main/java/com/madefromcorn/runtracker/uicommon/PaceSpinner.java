@@ -22,23 +22,34 @@ import com.madefromcorn.runtracker.R;
 public class PaceSpinner extends Spinner {
 
     private static final String DIALOG_TAG = PaceSpinner.class.getName() + ".DIALOG_TAG";
-
-    private NumberPicker mMinPicker;
-    private NumberPicker mSecPicker;
-    private ArrayAdapter<String> mAdapter;
-    private OnSetPaceClickListener mOnSetPaceClickListener;
-
     private static final int MAXIMUM_MINS = 59;
     private static final int MAXIMUM_SECS = 59;
     private static final int MINIMUM_MINS = 0;
     private static final int MINIMUM_SECS = 0;
-
+    private NumberPicker mMinPicker;
+    private NumberPicker mSecPicker;
+    private ArrayAdapter<String> mAdapter;
+    private OnSetPaceClickListener mOnSetPaceClickListener;
     private int mMinutes;
     private int mSeconds;
     private int mMinimumMins;
     private int mMaximumMins;
     private int mMinimumSecs;
     private int mMaximumSecs;
+
+    private Dialog.OnClickListener mSetPaceOnClick = new Dialog.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            mMinutes = mMinPicker.getValue();
+            mSeconds = mSecPicker.getValue();
+            mAdapter.insert(String.format("%02d:%02d", mMinutes, mSeconds), 0);
+            setSelection(0, true);
+
+            if (mOnSetPaceClickListener != null) {
+                mOnSetPaceClickListener.setPaceClicked(mMinutes, mSeconds);
+            }
+        }
+    };
 
     public PaceSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -77,20 +88,6 @@ public class PaceSpinner extends Spinner {
         dialog.show();
         return false;
     }
-
-    private Dialog.OnClickListener mSetPaceOnClick = new Dialog.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            mMinutes = mMinPicker.getValue();
-            mSeconds = mSecPicker.getValue();
-            mAdapter.insert(String.format("%02d:%02d", mMinutes, mSeconds), 0);
-            setSelection(0, true);
-
-            if (mOnSetPaceClickListener != null) {
-                mOnSetPaceClickListener.setPaceClicked(mMinutes, mSeconds);
-            }
-        }
-    };
 
     private View createView() {
         LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

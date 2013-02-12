@@ -15,7 +15,7 @@ import roboguice.inject.ContentView;
 public class MainActivity extends RoboSherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(Build.VERSION_CODES.HONEYCOMB > Build.VERSION.SDK_INT) {
+        if (Build.VERSION_CODES.HONEYCOMB > Build.VERSION.SDK_INT) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
         super.onCreate(savedInstanceState);
