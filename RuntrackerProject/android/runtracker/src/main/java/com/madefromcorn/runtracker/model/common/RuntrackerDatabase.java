@@ -30,7 +30,7 @@ public class RuntrackerDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + RUN_TABLE + " (" +
-                "RunID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                RUN_TABLE + "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Name VARCHAR(255) NOT NULL," +
                 "RouteID INTEGER," +
                 "StartTime INTEGER," +

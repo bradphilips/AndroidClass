@@ -3,6 +3,8 @@ package com.madefromcorn.runtracker.model;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.madefromcorn.runtracker.model.common.ActiveRecordBase;
+import com.madefromcorn.runtracker.model.common.DataColumn;
+import roboguice.inject.InjectView;
 
 import java.util.Date;
 
@@ -15,6 +17,8 @@ import java.util.Date;
 public class Run extends ActiveRecordBase {
     private static final String[] COLUMNS = {"RunID", "Name", "RouteID", "StartTime", "EndTime", "TotalDistance",
             "TargetedPaceMinutes", "TargetedPaceSeconds", "TargetedDistance"};
+
+    @DataColumn("RunID")
     private Integer mRunId;
     private String mName;
     private Integer mRouteId;

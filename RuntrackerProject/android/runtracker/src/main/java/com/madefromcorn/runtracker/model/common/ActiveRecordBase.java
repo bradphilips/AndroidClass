@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 
 /**
  * Project: runtracker
@@ -26,7 +28,15 @@ public abstract class ActiveRecordBase implements Serializable {
         T record = null;
         try {
             record = recordType.getConstructor(SQLiteOpenHelper.class).newInstance(databaseHelper);
-            Cursor cursor = database.query(record.getTable(), null, String.format("%sId = %d", record.getTable(), id),
+            Annotation[] annotations = recordType.getAnnotations();
+            ArrayList<String> columns = new ArrayList<String>();
+            for (Annotation annotation : annotations) {
+                //Build column list
+                if(annotation.annotationType() == DataColumn.class) {
+
+                }
+            }
+            Cursor cursor = database.query(record.getTable(), null, String.format("%sID = %d", record.getTable(), id),
                     record.getColumns(), null, null, null, "1");
             record.setIsNew(false);
             record.loadFromCursor(cursor);
