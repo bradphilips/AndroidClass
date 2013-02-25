@@ -1,10 +1,10 @@
 package com.madefromcorn.runtracker.model;
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.madefromcorn.runtracker.model.common.ActiveRecordBase;
-import com.madefromcorn.runtracker.model.common.DataColumn;
-import roboguice.inject.InjectView;
 
 import java.util.Date;
 
@@ -14,43 +14,42 @@ import java.util.Date;
  * Date: 2/11/13
  * Time: 8:46 PM
  */
+@DatabaseTable(tableName = "Run")
 public class Run extends ActiveRecordBase {
-    private static final String[] COLUMNS = {"RunID", "Name", "RouteID", "StartTime", "EndTime", "TotalDistance",
-            "TargetedPaceMinutes", "TargetedPaceSeconds", "TargetedDistance"};
-
-    @DataColumn("RunID")
+    @DatabaseField(columnName = "RunID",
+            generatedId = true,
+            dataType = DataType.INTEGER,
+            allowGeneratedIdInsert = true,
+            canBeNull = false)
     private Integer mRunId;
+    @DatabaseField(columnName = "Name",
+            dataType = DataType.STRING,
+            canBeNull = false)
     private String mName;
+    @DatabaseField(columnName = "RouteID",
+            dataType = DataType.INTEGER,
+            foreignColumnName = "RouteID")
     private Integer mRouteId;
+    @DatabaseField(columnName = "StartTime",
+            dataType = DataType.DATE)
     private Date mStartTime;
+    @DatabaseField(columnName = "EndTime",
+            dataType = DataType.DATE)
     private Date mEndTime;
+    @DatabaseField(columnName = "TotalDistance",
+            dataType = DataType.FLOAT)
+    private Float mTotalDistance;
+    @DatabaseField(columnName = "TargetedPaceMinutes",
+            dataType = DataType.INTEGER)
+    private Integer mTargetedPaceMinutes;
+    @DatabaseField(columnName = "TargetedPaceSeconds",
+            dataType = DataType.INTEGER)
+    private Integer mTargetedPaceSeconds;
+    @DatabaseField(columnName = "TargetedDistance",
+            dataType = DataType.FLOAT)
+    private Float mTargetedDistance;
 
     public Run(SQLiteOpenHelper databaseHelper) {
         super(databaseHelper);
-    }
-
-    @Override
-    public int getId() {
-        return mRunId;
-    }
-
-    @Override
-    public void loadFromCursor(Cursor cursor) {
-        cursor.moveToFirst();
-        mRunId = cursor.getInt(0);
-        mName = cursor.getString(1);
-        mRouteId = cursor.getInt(2);
-
-        long startTime = cursor.getLong(3);
-        mStartTime = new Date(startTime * 1000);
-        long endTime = cursor.getLong(3);
-        mEndTime = new Date(endTime * 1000);
-
-        // etc...
-    }
-
-    @Override
-    public String[] getColumns() {
-        return COLUMNS;
     }
 }

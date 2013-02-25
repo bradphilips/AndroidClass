@@ -5,6 +5,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.j256.ormlite.android.AndroidConnectionSource;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
+import com.madefromcorn.runtracker.model.Milestone;
+import com.madefromcorn.runtracker.model.Route;
+import com.madefromcorn.runtracker.model.Run;
+import com.madefromcorn.runtracker.model.RunData;
+
+import java.sql.SQLException;
 
 /**
  * Project: runtracker
@@ -14,11 +24,6 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class RuntrackerDatabase extends SQLiteOpenHelper {
-    public static final String RUN_TABLE = "Run";
-    public static final String ROUTE_TABLE = "Route";
-    public static final String MILESTONE_TABLE = "Milestone";
-    public static final String RUN_DATA_TABLE = "RunData";
-    public static final String[] TABLES = {RUN_TABLE, ROUTE_TABLE, MILESTONE_TABLE, RUN_DATA_TABLE};
     private static final String DATABASE_NAME = "Runtracker.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -29,50 +34,29 @@ public class RuntrackerDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + RUN_TABLE + " (" +
-                RUN_TABLE + "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Name VARCHAR(255) NOT NULL," +
-                "RouteID INTEGER," +
-                "StartTime INTEGER," +
-                "EndTime INTEGER," +
-                "TotalDistance NUMERIC(6,2) NOT NULL," +
-                "TargetedPaceMinutes INTEGER NOT NULL," +
-                "TargetedPaceSeconds INTEGER NOT NULL," +
-                "TargetedDistance NUMERIC(6,2) NOT NULL);"
-        );
-
-        db.execSQL("CREATE TABLE " + ROUTE_TABLE + " (" +
-                "RouteID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Name VARCHAR(255) NOT NULL," +
-                "Notes CLOB NOT NULL," +
-                "Polyline CLOB NOT NULL);"
-        );
-
-        db.execSQL("CREATE TABLE " + MILESTONE_TABLE + " (" +
-                "MilestoneID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "RunID INTEGER NOT NULL," +
-                "Latitude NUMERIC(6,10) NOT NULL," +
-                "Longitude NUMERIC(6,10) NOT NULL," +
-                "Description CLOB NOT NULL," +
-                "CreatedAt TIMESTAMP NOT NULL DEFAULT (strftime('%s','now')));"
-        );
-
-        db.execSQL("CREATE TABLE " + RUN_DATA_TABLE + " (" +
-                "RunDataID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "RunID INTEGER NOT NULL," +
-                "Latitude NUMERIC(6,10) NOT NULL," +
-                "Longitude NUMERIC(6,10) NOT NULL," +
-                "Altitude NUMERIC(6,10) NOT NULL," +
-                "CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s','now')));"
-        );
+        ConnectionSource source = new AndroidConnectionSource(db);
+        try {
+            TableUtils.createTable(source, Run.class);
+            TableUtils.createTable(source, Route.class);
+            TableUtils.createTable(source, Milestone.class);
+            TableUtils.createTable(source, RunData.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // For now; we'll just drop and re-create the db... In the future we may migrate to new version and
         // port all existing data in order to preserve our database...
-        for (String table : TABLES) {
-            db.execSQL(String.format("DROP TABLE IF EXISTS %s", table));
+        ConnectionSource source = new AndroidConnectionSource(db);
+        try {
+            TableUtils.dropTable(source, Run.class, true);
+            TableUtils.dropTable(source, Route.class, true);
+            TableUtils.dropTable(source, Milestone.class, true);
+            TableUtils.dropTable(source, RunData.class, true);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         onCreate(db);
     }

@@ -41,6 +41,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-android</artifactId>
+            <version>4.43</version>
+        </dependency>
+
+        <dependency>
             <groupId>de.akquinet.android.androlog</groupId>
             <artifactId>androlog</artifactId>
         </dependency>
