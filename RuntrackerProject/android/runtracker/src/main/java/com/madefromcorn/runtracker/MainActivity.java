@@ -8,6 +8,7 @@ import android.view.Window;
 import com.actionbarsherlock.app.ActionBar;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockFragmentActivity;
 import com.madefromcorn.runtracker.fragments.RunFragment;
+import com.madefromcorn.runtracker.fragments.stats.StatsFragment;
 import com.madefromcorn.runtracker.utils.TabListener;
 import roboguice.inject.ContentView;
 
@@ -23,7 +24,7 @@ public class MainActivity extends RoboSherlockFragmentActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         addActionTab(actionBar, "Run", null, RunFragment.class);
-        addActionTab(actionBar, "Stats", null, RunFragment.class);
+        addActionTab(actionBar, "Stats", null, StatsFragment.class);
         addActionTab(actionBar, "Share", null, RunFragment.class);
     }
 
