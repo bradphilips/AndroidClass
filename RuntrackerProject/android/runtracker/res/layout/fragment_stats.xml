@@ -9,7 +9,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             />
-    <com.viewpagerindicator.UnderlinePageIndicator
+    <com.viewpagerindicator.IconPageIndicator
             android:id="@+id/viewpager_indicator"
             android:layout_height="2dp"
             android:layout_width="fill_parent"

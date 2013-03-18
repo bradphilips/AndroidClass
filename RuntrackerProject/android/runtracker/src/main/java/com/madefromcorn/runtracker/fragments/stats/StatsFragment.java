@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
+import com.google.inject.Inject;
 import com.madefromcorn.runtracker.R;
+import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.UnderlinePageIndicator;
 import roboguice.inject.InjectView;
 
@@ -20,7 +22,8 @@ public class StatsFragment extends RoboSherlockFragment {
     @InjectView(R.id.viewpager)
     private ViewPager mViewPager;
     @InjectView(R.id.viewpager_indicator)
-    private UnderlinePageIndicator mPageIndicator;
+    private IconPageIndicator mPageIndicator;
+    @Inject
     private StatViewAdapter mStatsViewAdapter;
 
     @Override
@@ -33,9 +36,7 @@ public class StatsFragment extends RoboSherlockFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mStatsViewAdapter = new StatViewAdapter(getSherlockActivity().getSupportFragmentManager());
         mViewPager.setAdapter(mStatsViewAdapter);
-
         mPageIndicator.setViewPager(mViewPager);
     }
 }
