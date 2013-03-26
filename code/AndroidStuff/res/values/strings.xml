@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello androidstuff!</string>
+    <string name="app_name">androidstuff</string>
+    <string name="list_adapter">List Adapter</string>
+    <string name="custom_adapter">Custom Adapter</string>
+</resources>
