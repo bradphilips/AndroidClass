@@ -4,4 +4,12 @@
     <string name="app_name">androidstuff</string>
     <string name="list_adapter">List Adapter</string>
     <string name="custom_adapter">Custom Adapter</string>
+    <string name="to_text">To:</string>
+    <string name="content_to">to:</string>
+    <string name="from_text">From:</string>
+    <string name="message_text">Message:</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="send_email">Send Email</string>
+    <string name="intents_example">Intense</string>
+    <string name="scan_barcode_text">Scan Barcode</string>
 </resources>

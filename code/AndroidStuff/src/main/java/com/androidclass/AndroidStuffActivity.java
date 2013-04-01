@@ -22,9 +22,11 @@ public class AndroidStuffActivity extends Activity {
         setContentView(R.layout.main);
 
         Button listActivityButton = (Button)findViewById(R.id.goto_list);
-        listActivityButton.setOnClickListener(mListActivityOnClick);
         Button customListActivityButton = (Button)findViewById(R.id.goto_custom_list);
+        Button intenseOnActivityButton = (Button)findViewById(R.id.goto_intense_example);
+        listActivityButton.setOnClickListener(mListActivityOnClick);
         customListActivityButton.setOnClickListener(mCustomListActivityOnClick);
+        intenseOnActivityButton.setOnClickListener(mIntenseActivityOnClick);
     }
 
     private View.OnClickListener mListActivityOnClick = new View.OnClickListener() {
@@ -37,6 +39,13 @@ public class AndroidStuffActivity extends Activity {
     private View.OnClickListener mCustomListActivityOnClick = new View.OnClickListener() {
         public void onClick(View view) {
             Intent intent = new Intent(AndroidStuffActivity.this, CustomListAdapterActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener mIntenseActivityOnClick = new View.OnClickListener() {
+        public void onClick(View view) {
+            Intent intent = new Intent(AndroidStuffActivity.this, AndroidIntentsActivity.class);
             startActivity(intent);
         }
     };

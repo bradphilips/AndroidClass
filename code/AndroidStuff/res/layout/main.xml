@@ -11,4 +11,8 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:text="@string/custom_adapter"/>
+    <Button android:id="@+id/goto_intense_example"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/intents_example"/>
 </LinearLayout>

@@ -17,6 +17,7 @@
 
         <activity android:name=".ListAdapterActivity"/>
         <activity android:name=".CustomListAdapterActivity"/>
+        <activity android:name=".AndroidIntentsActivity"/>
     </application>
 
 </manifest>
